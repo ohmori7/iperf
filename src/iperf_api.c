@@ -3499,6 +3499,17 @@ iperf_stats_callback(struct iperf_test *test)
 
 		    temp.rttvar = get_rttvar(&temp);
 		    temp.pmtu = get_pmtu(&temp);
+
+		    temp.rto = get_rto(&temp);
+		    temp.ato = get_ato(&temp);
+		    temp.unacked = get_unacked(&temp);
+		    temp.sacked = get_sacked(&temp);
+		    temp.lost = get_lost(&temp);
+		    temp.fackets = get_fackets(&temp);
+		    temp.reordering = get_reordering(&temp);
+		    temp.last_data_sent = get_last_data_sent(&temp);
+		    temp.last_data_recv = get_last_data_recv(&temp);
+		    temp.last_ack_recv = get_last_ack_recv(&temp);
 		}
 	    }
 	} else {
@@ -4440,7 +4451,7 @@ print_interval_results(struct iperf_test *test, struct iperf_stream *sp, cJSON *
 	if ((test->sender_has_retransmits == 1 || test->protocol->id == Psctp) && sp->sender) {
 	    /* Interval, TCP with retransmits. */
 	    if (test->json_output)
-		cJSON_AddItemToArray(json_interval_streams, iperf_json_printf("socket: %d  start: %f  end: %f  seconds: %f  bytes: %d  bits_per_second: %f  retransmits: %d  snd_cwnd:  %d  snd_wnd:  %d  rtt:  %d  rttvar: %d  pmtu: %d  omitted: %b sender: %b", (int64_t) sp->socket, (double) st, (double) et, (double) irp->interval_duration, (int64_t) irp->bytes_transferred, bandwidth * 8, (int64_t) irp->interval_retrans, (int64_t) irp->snd_cwnd, (int64_t) irp->snd_wnd, (int64_t) irp->rtt, (int64_t) irp->rttvar, (int64_t) irp->pmtu, irp->omitted, sp->sender));
+		cJSON_AddItemToArray(json_interval_streams, iperf_json_printf("socket: %d  start: %f  end: %f  seconds: %f  bytes: %d  bits_per_second: %f  retransmits: %d  snd_cwnd:  %d  snd_wnd:  %d  rtt:  %d  rttvar: %d  pmtu: %d  rto: %d  ato: %d  unacked: %d  sacked: %d  lost: %d  fackets: %d  reordering: %d  last_data_sent: %d  last_data_recv: %d  last_ack_recv: %d  reord_seen: %d omitted: %b sender: %b", (int64_t) sp->socket, (double) st, (double) et, (double) irp->interval_duration, (int64_t) irp->bytes_transferred, bandwidth * 8, (int64_t) irp->interval_retrans, (int64_t) irp->snd_cwnd, (int64_t) irp->snd_wnd, (int64_t) irp->rtt, (int64_t) irp->rttvar, (int64_t) irp->pmtu, irp->rto, irp->ato, irp->unacked, irp->sacked, irp->lost, irp->fackets, irp->reordering, irp->last_data_sent, irp->last_data_recv, irp->last_ack_recv, irp->reord_seen, irp->omitted, sp->sender));
 	    else {
 		unit_snprintf(cbuf, UNIT_LEN, irp->snd_cwnd, 'A');
 		iperf_printf(test, report_bw_retrans_cwnd_format, sp->socket, mbuf, st, et, ubuf, nbuf, irp->interval_retrans, cbuf, irp->omitted?report_omitted:"");

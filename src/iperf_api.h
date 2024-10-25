@@ -318,6 +318,17 @@ long get_snd_wnd(struct iperf_interval_results *irp);
 long get_rtt(struct iperf_interval_results *irp);
 long get_rttvar(struct iperf_interval_results *irp);
 long get_pmtu(struct iperf_interval_results *irp);
+long get_rto(struct iperf_interval_results *irp);
+long get_ato(struct iperf_interval_results *irp);
+long get_unacked(struct iperf_interval_results *irp);
+long get_sacked(struct iperf_interval_results *irp);
+long get_lost(struct iperf_interval_results *irp);
+long get_fackets(struct iperf_interval_results *irp);
+long get_reordering(struct iperf_interval_results *irp);
+long get_last_data_sent(struct iperf_interval_results *irp);
+long get_last_data_recv(struct iperf_interval_results *irp);
+long get_last_ack_recv(struct iperf_interval_results *irp);
+long get_reord_seen(struct iperf_interval_results *irp);
 void print_tcpinfo(struct iperf_test *test);
 void build_tcpinfo_message(struct iperf_interval_results *r, char *message);
 

@@ -218,6 +218,38 @@ get_pmtu(struct iperf_interval_results *irp)
 }
 
 /*************************************************************/
+/*
+ * various TCP info.
+ */
+#if defined(linux) && defined(TCP_MD5SIG)
+#define DEFUNGET(field)						\
+long								\
+get_##field(struct iperf_interval_results *irp)			\
+{								\
+    return irp->tcpInfo.tcpi_##field;				\
+}
+#else /* linux && TCP_MD5SIG */
+#define DEFUNGET(field)						\
+long								\
+get_##field(struct iperf_interval_results *irp)			\
+{								\
+    return -1;							\
+}
+#endif /* linux && TCP_MD5SIG */
+
+DEFUNGET(rto)
+DEFUNGET(ato)
+DEFUNGET(unacked)
+DEFUNGET(sacked)
+DEFUNGET(lost)
+DEFUNGET(fackets)
+DEFUNGET(reordering)
+DEFUNGET(last_data_sent)
+DEFUNGET(last_data_recv)
+DEFUNGET(last_ack_recv)
+DEFUNGET(reord_seen)
+
+/*************************************************************/
 void
 build_tcpinfo_message(struct iperf_interval_results *r, char *message)
 {

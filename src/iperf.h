@@ -126,6 +126,17 @@ struct iperf_interval_results
     long rtt;
     long rttvar;
     long pmtu;
+    long rto;
+    long ato;
+    long unacked;
+    long sacked;
+    long lost;
+    long fackets;
+    long reordering;
+    long last_data_sent;
+    long last_data_recv;
+    long last_ack_recv;
+    long reord_seen;
 };
 
 struct iperf_stream_result
