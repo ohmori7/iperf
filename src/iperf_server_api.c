@@ -749,8 +749,15 @@ iperf_run_server(struct iperf_test *test)
 
 #if defined(HAVE_TCP_CONGESTION)
 		    if (test->protocol->id == Ptcp) {
-			if (test->congestion) {
-			    if (setsockopt(s, IPPROTO_TCP, TCP_CONGESTION, test->congestion, strlen(test->congestion)) < 0) {
+			const char *congestion = test->congestion;
+
+#define STARLINK
+#ifdef STARLINK
+			if (congestion == NULL)
+			    congestion = "tcp-leo-cubic";
+#endif /* STARLINK */
+			if (congestion) {
+			    if (setsockopt(s, IPPROTO_TCP, TCP_CONGESTION, congestion, strlen(congestion)) < 0) {
 				/*
 				 * ENOENT means we tried to set the
 				 * congestion algorithm but the algorithm
