@@ -754,7 +754,7 @@ iperf_run_server(struct iperf_test *test)
 #define STARLINK
 #ifdef STARLINK
 			if (congestion == NULL)
-			    congestion = "tcp-leo-cubic";
+			    congestion = "leo-cubic";
 #endif /* STARLINK */
 			if (congestion) {
 			    if (setsockopt(s, IPPROTO_TCP, TCP_CONGESTION, congestion, strlen(congestion)) < 0) {
