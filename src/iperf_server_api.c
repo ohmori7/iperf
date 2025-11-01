@@ -751,11 +751,6 @@ iperf_run_server(struct iperf_test *test)
 		    if (test->protocol->id == Ptcp) {
 			const char *congestion = test->congestion;
 
-//#define STARLINK
-#ifdef STARLINK
-			if (congestion == NULL)
-			    congestion = "leo-cubic";
-#endif /* STARLINK */
 			if (congestion) {
 			    if (setsockopt(s, IPPROTO_TCP, TCP_CONGESTION, congestion, strlen(congestion)) < 0) {
 				/*

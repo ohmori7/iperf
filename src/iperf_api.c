@@ -1559,7 +1559,10 @@ iperf_parse_arguments(struct iperf_test *test, int argc, char **argv)
 	    case 'C':
 #if defined(HAVE_TCP_CONGESTION)
 		test->congestion = strdup(optarg);
+#define STARLINK
+#ifndef STARLINK
 		client_flag = 1;
+#endif /* ! STARLINK */
 #else /* HAVE_TCP_CONGESTION */
 		i_errno = IEUNIMP;
 		return -1;
